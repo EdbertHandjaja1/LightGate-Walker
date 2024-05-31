@@ -4,9 +4,10 @@ SevSeg sevseg;
 // Counter
 int rotationCount = 0;
 bool turn = false;
-double radius = 6.28; 
+// In feet
+double radius = 6.28 / 30.48; 
 double pi = 3.1415926535897932384626433832795;
-double circumference = pi * radius * 2 / 30.48; //convert to feet
+double circumference = pi * radius * 2;
 bool reset = false;
 int resetVal = 50;
 
@@ -60,13 +61,13 @@ void loop() {
   // Counter
   int analogValue = analogRead(A0);
   int button = analogRead(A1);
-  //Serial.println(button);
+  Serial.println(button);
   if (resetVal == 0) {
     rotationCount = 0;
     resetVal = 50;
   }
   while (resetVal != 0) {
-    if (button >= 8 && button < 12) {
+    if (button >= 0 && button < 3) {
       resetVal -= 1;
     } else {
       resetVal = 50;
@@ -75,8 +76,8 @@ void loop() {
   }
 
 
-  Serial.println(analogValue);
-  if (analogValue <= 0){
+  //Serial.println(analogValue);
+  if (analogValue <= 3){
     turn = true;
   } 
 
